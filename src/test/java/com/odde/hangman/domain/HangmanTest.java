@@ -115,13 +115,32 @@ public class HangmanTest {
     public class DiscoveredWhenGameStarted {
 
         @Test
-        public void should_be_a_when_word_is_a() {
-            givenRequestWithGameState(null, null);
-            givenWord("a");
-            Hangman hangman = createHangman();
+        public void should_be_itself_when_word_is_a_vowel() {
+            Hangman hangman = givenGameStartedWithWord("a");
 
             assertThat(hangman.discovered()).isEqualTo("a");
         }
+
+        @Test
+        public void should_be_underscore_when_word_is_a_consonant() {
+            Hangman hangman = givenGameStartedWithWord("c");
+
+            assertThat(hangman.discovered()).isEqualTo("_");
+        }
+
+        @Test
+        public void should_be_itself_when_word_is_two_vowels() {
+            Hangman hangman = givenGameStartedWithWord("ai");
+
+            assertThat(hangman.discovered()).isEqualTo("ai");
+        }
+
+        private Hangman givenGameStartedWithWord(String word) {
+            givenRequestWithGameState(null, null);
+            givenWord(word);
+            return createHangman();
+        }
+
     }
 
 }

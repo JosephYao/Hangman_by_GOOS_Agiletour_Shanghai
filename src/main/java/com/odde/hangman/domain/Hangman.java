@@ -7,6 +7,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import javax.servlet.http.HttpServletRequest;
 
 import static java.lang.Integer.parseInt;
+import static java.util.stream.Collectors.joining;
 
 @Component
 @RequestScope
@@ -74,6 +75,14 @@ public class Hangman {
     }
 
     public String discovered() {
-        return word;
+        return word.chars().mapToObj(this::discoveredChar).collect(joining());
+    }
+
+    private String discoveredChar(int intChar) {
+        String character = String.valueOf((char) intChar);
+        if (isCharUsed(character))
+            return character;
+        else
+            return "_";
     }
 }
