@@ -12,14 +12,15 @@ import static java.lang.Integer.parseInt;
 @RequestScope
 public class Hangman {
 
+    private final String word;
     private int tries;
     private String usedChars;
-    private String word = "tuesday";
 
     @Autowired
-    public Hangman(HttpServletRequest request) {
+    public Hangman(HttpServletRequest request, WordWarehouse wordWarehouse) {
         initUsedChars(request);
         initTries(request);
+        word = wordWarehouse.getWord();
     }
 
     private void initTries(HttpServletRequest request) {
@@ -70,5 +71,9 @@ public class Hangman {
 
     public String usedChars() {
         return usedChars;
+    }
+
+    public String discovered() {
+        return word;
     }
 }

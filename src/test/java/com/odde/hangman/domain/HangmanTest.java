@@ -14,9 +14,10 @@ import static org.mockito.Mockito.when;
 public class HangmanTest {
 
     HttpServletRequest stubHttpServletRequest = mock(HttpServletRequest.class);
+    WordWarehouse stubWordWarehouse = mock(WordWarehouse.class);
 
     private Hangman createHangman() {
-        return new Hangman(stubHttpServletRequest);
+        return new Hangman(stubHttpServletRequest, stubWordWarehouse);
     }
 
     private void givenRequestWithGameState(String tries, String usedChars) {
@@ -26,7 +27,12 @@ public class HangmanTest {
 
     private Hangman hangmanWhenGameJustStarted() {
         givenRequestWithGameState(null, null);
-        return new Hangman(stubHttpServletRequest);
+        givenWord("tuesday");
+        return createHangman();
+    }
+
+    private void givenWord(String tuesday) {
+        when(stubWordWarehouse.getWord()).thenReturn(tuesday);
     }
 
     public class GameStateSetByRequest {
@@ -42,6 +48,7 @@ public class HangmanTest {
         @Test
         public void should_be_initial_state_when_start_game() {
             givenRequestWithGameState(null, null);
+            givenWord("tuesday");
 
             assertThat(createHangman().tries()).isEqualTo(12);
             assertThat(createHangman().length()).isEqualTo(7);
@@ -103,6 +110,18 @@ public class HangmanTest {
             assertThat(hangman.tries()).isEqualTo(11);
         }
 
+    }
+
+    public class DiscoveredWhenGameStarted {
+
+        @Test
+        public void should_be_a_when_word_is_a() {
+            givenRequestWithGameState(null, null);
+            givenWord("a");
+            Hangman hangman = createHangman();
+
+            assertThat(hangman.discovered()).isEqualTo("a");
+        }
     }
 
 }
