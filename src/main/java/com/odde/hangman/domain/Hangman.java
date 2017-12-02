@@ -80,7 +80,7 @@ public class Hangman {
 
     private String discoveredChar(int intChar) {
         String character = String.valueOf((char) intChar);
-        if ("aeiou".contains(character))
+        if (usedChars.contains(character))
             return character;
         else
             return "_";

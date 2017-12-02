@@ -35,6 +35,12 @@ public class HangmanTest {
         when(stubWordWarehouse.getWord()).thenReturn(tuesday);
     }
 
+    private Hangman givenGameStartedWithWord(String word) {
+        givenRequestWithGameState(null, null);
+        givenWord(word);
+        return createHangman();
+    }
+
     public class GameStateSetByRequest {
 
         @Test
@@ -135,12 +141,17 @@ public class HangmanTest {
             assertThat(hangman.discovered()).isEqualTo("ai");
         }
 
-        private Hangman givenGameStartedWithWord(String word) {
-            givenRequestWithGameState(null, null);
-            givenWord(word);
-            return createHangman();
-        }
-
     }
 
+    public class DiscoveredChangeByInput {
+
+        @Test
+        public void should_be_changed_when_input_is_a_correct_consonant() {
+            Hangman hangman = givenGameStartedWithWord("agiletour");
+
+            hangman.input("g");
+
+            assertThat(hangman.discovered()).isEqualTo("agi_e_ou_");
+        }
+    }
 }

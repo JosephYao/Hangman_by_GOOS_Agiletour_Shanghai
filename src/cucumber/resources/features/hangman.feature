@@ -26,4 +26,4 @@ Feature: Hangman
     When input a character "t"
     Then the game state as below
       | tries | length of word | used chars | guessed word |
-      | 12    | 7              | aeiout     |              |
+      | 12    | 7              | aeiout     | tue__a_      |
