@@ -22,6 +22,7 @@ public class HangmanController {
         model.addAttribute("tries", hangman.tries());
         model.addAttribute("length", hangman.length());
         model.addAttribute("usedChars", hangman.usedChars());
+        model.addAttribute("discovered", hangman.discovered());
         return "index";
     }
 
