@@ -11,6 +11,7 @@ dependencies {
             [group: 'org.projectlombok', name: 'lombok', version: libVersions.lombok],
             [group: 'org.webjars', name: 'bootstrap', version: libVersions.bootstrap],
             [group: 'org.webjars', name: 'jquery', version: libVersions.jquery],
+            [group: 'com.squareup.retrofit2', name: 'retrofit', version: libVersions.retrofit],
             [group: 'com.squareup.retrofit2', name: 'converter-jackson', version: libVersions.retrofit],
     )
 

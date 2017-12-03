@@ -4,3 +4,7 @@ server:
 cucumber:
   port: 8080
   context-path:
+
+external:
+  randomWordServer:
+    url: http://localhost:12306
