@@ -3,6 +3,7 @@ package com.odde.hangman.steps;
 import com.odde.hangman.Application;
 import com.odde.hangman.data.GameState;
 import com.odde.hangman.pages.HomePage;
+import com.odde.hangman.server.RandomWordServer;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -21,8 +22,12 @@ public class HangmanSteps {
     @Autowired
     HomePage homePage;
 
+    @Autowired
+    RandomWordServer server;
+
     @Given("^the word is \"([^\"]*)\"$")
-    public void the_word_is(String arg1) throws Throwable {
+    public void the_word_is(String word) throws Throwable {
+        server.response(word);
     }
 
     @Given("^a player already start a game and input a wrong consonant \"([^\"]*)\"$")

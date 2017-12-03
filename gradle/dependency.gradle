@@ -11,6 +11,7 @@ dependencies {
             [group: 'org.projectlombok', name: 'lombok', version: libVersions.lombok],
             [group: 'org.webjars', name: 'bootstrap', version: libVersions.bootstrap],
             [group: 'org.webjars', name: 'jquery', version: libVersions.jquery],
+            [group: 'com.squareup.retrofit2', name: 'converter-jackson', version: libVersions.retrofit],
     )
 
     testCompile (
@@ -22,6 +23,7 @@ dependencies {
             [group: 'com.nitorcreations', name: 'junit-runners', version: testLibVersions.nestedrunner],
             [group: 'org.assertj', name: 'assertj-core', version: testLibVersions.assertj],
             [group: 'org.seleniumhq.selenium', name: 'selenium-java', version: testLibVersions.selenium],
+            [group: 'com.github.dreamhead', name: 'moco-core', version: testLibVersions.moco],
     )
 
     cucumberRuntime ([group: 'info.cukes', name: 'cucumber-java', version: testLibVersions.cucumber])
