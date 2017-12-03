@@ -19,9 +19,20 @@ public class Hangman {
 
     @Autowired
     public Hangman(HttpServletRequest request, WordWarehouse wordWarehouse) {
+        word = initWord(request, wordWarehouse);
         initUsedChars(request);
         initTries(request);
-        word = wordWarehouse.getWord();
+    }
+
+    private String initWord(HttpServletRequest request, WordWarehouse wordWarehouse) {
+        if (wordOf(request) == null)
+            return wordWarehouse.getWord();
+        else
+            return wordOf(request);
+    }
+
+    private String wordOf(HttpServletRequest request) {
+        return request.getParameter("word");
     }
 
     private void initTries(HttpServletRequest request) {
@@ -84,5 +95,9 @@ public class Hangman {
             return character;
         else
             return "_";
+    }
+
+    public String word() {
+        return word;
     }
 }

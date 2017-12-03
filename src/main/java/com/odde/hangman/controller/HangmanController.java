@@ -23,6 +23,7 @@ public class HangmanController {
         model.addAttribute("length", hangman.length());
         model.addAttribute("usedChars", hangman.usedChars());
         model.addAttribute("discovered", hangman.discovered());
+        model.addAttribute("word", hangman.word());
         return "index";
     }
 

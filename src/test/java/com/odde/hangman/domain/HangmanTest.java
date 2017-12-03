@@ -20,13 +20,14 @@ public class HangmanTest {
         return new Hangman(stubHttpServletRequest, stubWordWarehouse);
     }
 
-    private void givenRequestWithGameState(String tries, String usedChars) {
+    private void givenRequestWithGameState(String tries, String usedChars, String word) {
         when(stubHttpServletRequest.getParameter("tries")).thenReturn(tries);
         when(stubHttpServletRequest.getParameter("usedChars")).thenReturn(usedChars);
+        when(stubHttpServletRequest.getParameter("word")).thenReturn(word);
     }
 
     private Hangman hangmanWhenGameJustStarted() {
-        givenRequestWithGameState(null, null);
+        givenRequestWithGameState(null, null, null);
         givenWord("tuesday");
         return createHangman();
     }
@@ -36,7 +37,7 @@ public class HangmanTest {
     }
 
     private Hangman givenGameStartedWithWord(String word) {
-        givenRequestWithGameState(null, null);
+        givenRequestWithGameState(null, null, null);
         givenWord(word);
         return createHangman();
     }
@@ -45,20 +46,22 @@ public class HangmanTest {
 
         @Test
         public void should_be_from_request_if_set() {
-            givenRequestWithGameState("10", "aeiouc");
+            givenRequestWithGameState("10", "aeiouc", "word");
 
             assertThat(createHangman().tries()).isEqualTo(10);
             assertThat(createHangman().usedChars()).isEqualTo("aeiouc");
+            assertThat(createHangman().word()).isEqualTo("word");
         }
 
         @Test
         public void should_be_initial_state_when_start_game() {
-            givenRequestWithGameState(null, null);
+            givenRequestWithGameState(null, null, null);
             givenWord("tuesday");
 
             assertThat(createHangman().tries()).isEqualTo(12);
             assertThat(createHangman().length()).isEqualTo(7);
             assertThat(createHangman().usedChars()).isEqualTo("aeiou");
+            assertThat(createHangman().word()).isEqualTo("tuesday");
         }
     }
 
@@ -108,7 +111,7 @@ public class HangmanTest {
 
         @Test
         public void should_decrease_when_input_a_character_already_used() {
-            givenRequestWithGameState("12", "aeiout");
+            givenRequestWithGameState("12", "aeiout", null);
             hangman = createHangman();
 
             hangman.input("t");
