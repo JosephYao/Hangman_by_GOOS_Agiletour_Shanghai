@@ -51,4 +51,9 @@ public class HangmanSteps {
         homePage.assertAllTextPresent(gameStates.get(0));
     }
 
+    @Given("^two words \"([^\"]*)\" and \"([^\"]*)\" in the word warehouse$")
+    public void two_words_and_in_the_word_warehouse(String firstWord, String secondWord) throws Throwable {
+        server.response(firstWord, secondWord);
+    }
+
 }

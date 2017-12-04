@@ -88,4 +88,8 @@ public class Driver {
     private String urlWithHostAndPort(String url) {
         return HOST_NAME_PREFIX + port + contextPath + url;
     }
+
+    public String getTextByName(String name) {
+        return elementByName(name).getAttribute("value");
+    }
 }

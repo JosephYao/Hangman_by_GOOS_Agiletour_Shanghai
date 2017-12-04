@@ -28,4 +28,8 @@ public class HomePage {
         driver.waitForTextPresent(gameState.getUsedChars());
         driver.waitForTextPresent(gameState.getGuessedWord());
     }
+
+    public String getWord() {
+        return driver.getTextByName("word");
+    }
 }

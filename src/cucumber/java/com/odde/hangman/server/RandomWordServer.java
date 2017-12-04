@@ -2,8 +2,9 @@ package com.odde.hangman.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.dreamhead.moco.HttpServer;
-import com.github.dreamhead.moco.Runner;
+import com.github.dreamhead.moco.*;
+import com.github.dreamhead.moco.internal.SessionContext;
+import com.github.dreamhead.moco.model.MessageContent;
 import com.odde.hangman.domain.RandomWord;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -25,16 +26,33 @@ public class RandomWordServer {
         runner.stop();
     }
 
-    public void response(String word) {
-        try {
-            server.response(jsonOf(word));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+    public void response(String... words) {
+        final int[] wordIndex = {0};
+        server.response(new ResponseHandler() {
+            @Override
+            public void writeToResponse(SessionContext context) {
+                Request request = context.getRequest();
+                Response response = context.getResponse();
+
+                if (HttpRequest.class.isInstance(request) && MutableHttpResponse.class.isInstance(response)) {
+                    MutableHttpResponse httpResponse = MutableHttpResponse.class.cast(response);
+                    httpResponse.setContent(MessageContent.content(jsonOf(words[wordIndex[0]++])));
+                }
+            }
+
+            @Override
+            public ResponseHandler apply(MocoConfig config) {
+                return this;
+            }
+        });
     }
 
-    private String jsonOf(String word) throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(randomWordOf(word));
+    private String jsonOf(String word) {
+        try {
+            return new ObjectMapper().writeValueAsString(randomWordOf(word));
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     private RandomWord randomWordOf(String word) {
