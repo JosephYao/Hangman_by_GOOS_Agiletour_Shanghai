@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
 
@@ -77,8 +78,14 @@ public class Hangman {
     }
 
     public String discovered() {
-        if ("aeiou".contains(this.word))
-            return this.word;
-        return "_";
+        return this.word.chars().mapToObj(i -> convertOneChar((char) i)).collect(Collectors.joining());
+    }
+
+    private String convertOneChar(char i) {
+        if ("aeiou".indexOf(i) >= 0) {
+            return String.valueOf(i);
+        } else {
+            return "_";
+        }
     }
 }

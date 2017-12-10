@@ -126,5 +126,13 @@ public class HangmanTest {
             Hangman hangman = createHangmanByWord("y");
             assertThat(hangman.discovered()).isEqualTo("_");
         }
+
+        @Test
+        public void should_display_two_vowels_at_initial() {
+            Hangman hangman = createHangmanByWord("oo");
+            assertThat(hangman.discovered()).isEqualTo("oo");
+        }
+
+
     }
 }
