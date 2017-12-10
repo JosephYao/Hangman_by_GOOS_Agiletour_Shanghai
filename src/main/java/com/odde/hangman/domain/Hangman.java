@@ -15,15 +15,12 @@ public class Hangman {
 
     private int tries;
     private String usedChars;
-    private String word = "tuesday";
+    private String word;
 
     @Autowired
-    public Hangman(HttpServletRequest request) {
+    public Hangman(HttpServletRequest request, WordProvider wordProvider) {
         initUsedChars(request);
         initTries(request);
-    }
-
-    public Hangman(HttpServletRequest stubHttpServletRequest, WordProvider wordProvider) {
         this.word = wordProvider.getWord();
     }
 

@@ -16,7 +16,7 @@ public class HangmanTest {
     HttpServletRequest stubHttpServletRequest = mock(HttpServletRequest.class);
 
     private Hangman createHangman() {
-        return new Hangman(stubHttpServletRequest);
+        return new Hangman(stubHttpServletRequest, new WordProvider());
     }
 
     private void givenRequestWithGameState(String tries, String usedChars) {
@@ -26,7 +26,7 @@ public class HangmanTest {
 
     private Hangman hangmanWhenGameJustStarted() {
         givenRequestWithGameState(null, null);
-        return new Hangman(stubHttpServletRequest);
+        return new Hangman(stubHttpServletRequest, new WordProvider());
     }
 
     private Hangman createHangmanByWord(String word) {
@@ -133,6 +133,10 @@ public class HangmanTest {
             assertThat(hangman.discovered()).isEqualTo("oo");
         }
 
-
+        @Test
+        public void should_display_a_word_at_initial() {
+            Hangman hangman = createHangmanByWord("tuesday");
+            assertThat(hangman.discovered()).isEqualTo("_ue__a_");
+        }
     }
 }
