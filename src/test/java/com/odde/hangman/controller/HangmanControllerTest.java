@@ -22,12 +22,14 @@ public class HangmanControllerTest {
         when(mockHangman.tries()).thenReturn(tries);
         when(mockHangman.length()).thenReturn(length);
         when(mockHangman.usedChars()).thenReturn(usedChars);
+        when(mockHangman.discovered()).thenReturn("discovered");
     }
 
     private void verifyAddAttributeForView(int tries, int length, String usedChars) {
         verify(mockModel).addAttribute("tries", tries);
         verify(mockModel).addAttribute("length", length);
         verify(mockModel).addAttribute("usedChars", usedChars);
+        verify(mockModel).addAttribute("discovered", "discovered");
     }
 
     public class Input {
@@ -37,6 +39,7 @@ public class HangmanControllerTest {
             givenGameStateIs(ANY_TRIES, ANY_LENGTH, ANY_USED_CHARS);
 
             input("a");
+
 
             verifyAddAttributeForView(ANY_TRIES, ANY_LENGTH, ANY_USED_CHARS);
         }
