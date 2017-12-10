@@ -139,4 +139,13 @@ public class HangmanTest {
             assertThat(hangman.discovered()).isEqualTo("_ue__a_");
         }
     }
+
+    public class DiscoveredChangedByInput {
+        @Test
+        public void should_changed_if_input_is_ok() {
+            Hangman hangman = createHangmanByWord("ok");
+            hangman.input("k");
+            assertThat(hangman.discovered()).isEqualTo("ok");
+        }
+    }
 }

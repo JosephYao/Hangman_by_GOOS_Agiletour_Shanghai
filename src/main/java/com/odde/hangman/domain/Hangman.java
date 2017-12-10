@@ -51,6 +51,8 @@ public class Hangman {
     }
 
     public void input(String character) {
+
+
         if (isCharNotInWord(character) || isCharUsed(character))
             tries--;
 
@@ -79,7 +81,7 @@ public class Hangman {
     }
 
     private String convertOneChar(char i) {
-        if ("aeiou".indexOf(i) >= 0) {
+        if (usedChars.indexOf(i) >= 0) {
             return String.valueOf(i);
         } else {
             return "_";
