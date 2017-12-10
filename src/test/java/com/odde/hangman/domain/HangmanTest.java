@@ -29,6 +29,7 @@ public class HangmanTest {
         return new Hangman(stubHttpServletRequest);
     }
 
+
     public class GameStateSetByRequest {
 
         @Test
@@ -103,6 +104,27 @@ public class HangmanTest {
             assertThat(hangman.tries()).isEqualTo(11);
         }
 
+
     }
 
+    public class DiscoveredTest {
+
+        @Test
+        public void should_display_vowels_at_initial() {
+            givenRequestWithGameState(null, null);
+            WordProvider wordProvider = mock(WordProvider.class);
+            when(wordProvider.getWord()).thenReturn("o");
+            Hangman hangman = new Hangman(stubHttpServletRequest, wordProvider);
+            assertThat(hangman.discovered()).isEqualTo("o");
+        }
+
+        @Test
+        public void should_display_underscore_at_initial_when_consonant() {
+            givenRequestWithGameState(null, null);
+            WordProvider wordProvider = mock(WordProvider.class);
+            when(wordProvider.getWord()).thenReturn("y");
+            Hangman hangman = new Hangman(stubHttpServletRequest, wordProvider);
+            assertThat(hangman.discovered()).isEqualTo("_");
+        }
+    }
 }

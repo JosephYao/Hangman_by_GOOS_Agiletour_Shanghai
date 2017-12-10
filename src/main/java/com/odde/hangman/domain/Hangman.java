@@ -22,6 +22,10 @@ public class Hangman {
         initTries(request);
     }
 
+    public Hangman(HttpServletRequest stubHttpServletRequest, WordProvider wordProvider) {
+        this.word = wordProvider.getWord();
+    }
+
     private void initTries(HttpServletRequest request) {
         if (triesOf(request) == null)
             tries = 12;
@@ -70,5 +74,11 @@ public class Hangman {
 
     public String usedChars() {
         return usedChars;
+    }
+
+    public String discovered() {
+        if ("aeiou".contains(this.word))
+            return this.word;
+        return "_";
     }
 }

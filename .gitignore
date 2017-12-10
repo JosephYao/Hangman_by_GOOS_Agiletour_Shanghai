@@ -17,3 +17,4 @@
 .gradle
 .gradletasknamecache
 /build/
+!/src/test/java/com/odde/hangman/domain/HangmanTest.java
