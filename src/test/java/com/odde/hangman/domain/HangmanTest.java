@@ -113,7 +113,7 @@ public class HangmanTest {
 
     }
 
-    public class DiscoveredTest {
+    public class DiscoveredInitialState {
 
         @Test
         public void should_display_vowels_at_initial() {
